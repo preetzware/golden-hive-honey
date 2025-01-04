@@ -3,43 +3,36 @@ html {
 }
 
 .navbar {
-    background-color: #FFDE59 !important; /* Ensures full width color */
+    background-color: #FFDE59 !important;
     width: 100%;
 }
 
+/* Navbar link hover effect */
 .navbar-nav .nav-link {
-    color: #000000;
+    color: #000000; /* Default text color */
     font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    text-decoration: none;
-    position: relative;
-}
-
-.navbar-nav .nav-link::before,
-.navbar-nav .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: #675C32;
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.navbar-nav .nav-link::before {
-    top: -5px;
-}
-
-.navbar-nav .nav-link::after {
-    bottom: -5px;
-}
-
-.navbar-nav .nav-link:hover::before,
-.navbar-nav .nav-link:hover::after {
-    transform: scaleX(1);
+    font-weight: 700; /* Bold text */
+    text-decoration: none; /* Remove underline */
 }
 
 .navbar-nav .nav-link:hover {
-    color: #000000;
+    color: #000000; /* Black text on hover */
+    font-weight: bold; /* Keep bold effect */
+    text-decoration: none; /* Ensure no underline */
+}
+
+/* Dropdown menu appears on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block; /* Show the dropdown menu */
+    margin-top: 0; /* Align it properly */
+}
+
+/* Adjust dropdown menu styling */
+.dropdown-menu {
+    border: none; /* Optional: Remove border */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
+}
+
+.navbar-nav .nav-item {
+    margin-left: 15px;
 }
