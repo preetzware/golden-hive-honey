@@ -130,3 +130,45 @@ body {
     font-size: 22px;
     font-weight: bold;
 }
+
+ /* Media Queries */
+
+ /* Small Screens (Below 992px) */
+@media (max-width: 991px) {
+    /* Show the logo for medium and small screens */
+    .navbar .navbar-brand.d-lg-none {
+      display: block;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2; /* Ensure it stays above other elements */
+    }
+  
+    /* Align the search and cart icons to the right */
+    .d-lg-none.d-flex {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+  
+    /* Hide the large-screen logo */
+    .navbar .navbar-brand.d-lg-block {
+      display: none;
+    }
+  }
+  
+  /* Large Screens (992px and Above) */
+  @media (min-width: 992px) {
+    /* Show the large-screen logo */
+    .navbar .navbar-brand.d-lg-block {
+      display: block;
+      position: static; /* Default positioning */
+    }
+  
+    /* Hide the small-screen logo */
+    .navbar .navbar-brand.d-lg-none {
+      display: none;
+    }
+  }
