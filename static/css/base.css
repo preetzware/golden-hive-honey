@@ -55,10 +55,22 @@ body {
 }
 
 .logo-img:hover {
-    border: 3px solid #ffffff;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    border: 3px solid #000000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s ease, border 0.3s ease;
 }
 
+/* Delivery Banner */
+.delivery-banner {
+    background-color: #53565a;
+    padding: 0.2rem 0;
+}
+
+.logo-font {
+    font-size: 1rem!important;
+}
+
+  
 /* Index.html Page */
 
 /* video section */

@@ -40,7 +40,7 @@
     <header class="container-fluid fixed-top shadow-sm py-2">
       <nav class="navbar navbar-expand-lg navbar-light">
         <!-- Include Mobile View Header -->
-        {% include 'includes/mobile-top-header.html' %}
+        {% include 'includes/mobile-header.html' %}
     
         <!-- Collapsible Content (Hamburger Dropdown Menu) -->
         <div class="collapse navbar-collapse" id="navbarContent">
@@ -171,6 +171,13 @@
           </ul>
         </div>
       </nav>
+    <!-- Delivery Banner -->
+    <div id="delivery-banner" class="row text-center delivery-banner"> 
+      <div class="col text-white">
+        <h4 class="logo-font my-1">Free delivery on orders over ${{ free_shipping_threshold }}!</h4>                
+      </div>            
+    </div>
+    
     </header>    
   
     {% if messages %}
