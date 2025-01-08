@@ -1,0 +1,23 @@
+<!-- Mobile Top Header -->
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <!-- Small Screen: Logo -->
+  <a class="navbar-brand mx-auto d-lg-none" href="{% url 'home' %}">
+    <img src="/media/golden-hive-logo.png" alt="Golden Hive Logo" class="logo-img">
+  </a>
+  
+  <!-- Small Screen: Search and Cart Icons -->
+  <div class="d-flex align-items-center d-lg-none">
+    <a class="nav-link" href="#" id="searchIcon">
+      <i class="fas fa-search"></i>
+    </a>
+    <a class="nav-link" href="#" id="cartIcon">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="{% if cart_items %}badge badge-pill badge-primary{% else %}d-none{% endif %}" id="cart-badge">
+        {% if cart_items %}{{ cart_items|length }}{% endif %}
+      </span>
+    </a>
+  </div>
+  
