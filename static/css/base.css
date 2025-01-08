@@ -48,6 +48,17 @@ body {
     margin-left: 15px;
 }
 
+.logo-img {
+    width: 120px;
+    height: auto;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-img:hover {
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
 /* Index.html Page */
 
 /* video section */
