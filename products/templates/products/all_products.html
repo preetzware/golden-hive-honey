@@ -5,7 +5,7 @@
     <div class="container header-container">
         <div class="row">
             <div class="col text-center">
-                <h1 class="logo-font">Products</h1>
+                <h1 class="all-prods">All Products</h1>
                 <hr class="w-50 mb-1">
             </div>
         </div>
@@ -15,75 +15,69 @@
 {% block content %}
     <div class="overlay"></div>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col text-center mt-3">
-                <h2 class="logo-font">Explore Our Products</h2>
-                <hr class="w-50 mb-4">
-            </div>
-        </div>
-
-        <!-- Product Grid -->
-        <div class="row">
-            <div class="product-container col-10 offset-1">
-                <div class="row">
-                    {% for product in products %}
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <div class="card h-100 border-0">
-                                <!-- Product Image -->
-                                {% if product.image_url %}
-                                <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.name }}">
-                                {% elif product.image %}
-                                <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
-                                {% else %}
-                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
-                                {% endif %}
-
-                                <!-- Product Name -->
-                                <div class="card-body pb-0">
-                                    <h5 class="card-title">{{ product.name }}</h5>
-                                </div>
-
-                                <!-- Product Footer -->
-                                <div class="card-footer bg-white pt-0 border-0 text-left">
-                                    <p class="lead font-weight-bold">${{ product.price }}</p>
-                                    {% if product.rating %}
-                                        <small class="text-muted">
-                                            <i class="fas fa-star mr-1"></i>{{ product.rating }} / 5
-                                        </small>
-                                    {% else %}
-                                        <small class="text-muted">No Rating</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Responsive Breakpoints -->
-                        {% if forloop.counter|divisibleby:1 %}
-                            <div class="col-12 d-sm-none mb-4">
-                                <hr>
-                            </div>
-                        {% endif %}
-                        {% if forloop.counter|divisibleby:2 %}
-                            <div class="col-12 d-none d-sm-block d-md-none mb-4">
-                                <hr>
-                            </div>
-                        {% endif %}
-                        {% if forloop.counter|divisibleby:3 %}
-                            <div class="col-12 d-none d-md-block d-lg-none mb-4">
-                                <hr>
-                            </div>
-                        {% endif %}
-                        {% if forloop.counter|divisibleby:4 %}
-                            <div class="col-12 d-none d-lg-block mb-4">
-                                <hr>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+        <!-- Category Banners and Products -->
+        {% for category in categories %}
+            <div class="row">
+                <div class="col text-center mt-5">
+                    <h2 class="logo-font">{{ category.name }}</h2>
+                    <hr class="w-50 mb-4">
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="product-container col-10 offset-1">
+                    <div class="row">
+                        {% for product in products %}
+                            {% if product.category.name == category.name %}
+                                <div class="col-6 col-md-4 col-lg-3 mb-4">
+                                    <div class="card h-100">
+                                        <!-- Product Image -->
+                                        {% if product.image_url %}
+                                            <img class="card-img-top img-fluid" src="{{ product.image_url }}" alt="{{ product.name }}">
+                                        {% elif product.image %}
+                                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                        {% else %}
+                                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                        {% endif %}
+                                    
+                                        <!-- Product Body -->
+                                        <div class="card-body text-center">
+                                            <!-- Product Name -->
+                                            <h5 class="card-title mb-2">
+                                                <a href="#" target="_blank" class="product-link">
+                                                    {{ product.name }}
+                                                </a>
+                                            </h5>
+                                    
+                                            <!-- Product Price -->
+                                            <p class="lead font-weight-bold mb-2">${{ product.price }}</p>
+                                    
+                                            <!-- Product Rating -->
+                                            {% if product.rating %}
+                                                <small class="text-muted">
+                                                    <i class="fas fa-star text-warning"></i> {{ product.rating }} / 5
+                                                </small>
+                                            {% else %}
+                                                <small class="text-muted">No Rating</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Message if No Products -->
+            <!-- Message if No Products in the Category -->
+            {% if products|dictsort:"category"|length == 0 %}
+                <div class="row">
+                    <div class="col text-center">
+                        <p class="text-muted">No products available in this category.</p>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <!-- Message if No Products Exist at All -->
         {% if products|length == 0 %}
             <div class="row">
                 <div class="col text-center">

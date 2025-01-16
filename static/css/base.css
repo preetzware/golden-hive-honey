@@ -2,6 +2,15 @@ html {
     height: 100%;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 body {
     font-family: Raleway, sans-serif;
     margin: 0;
@@ -65,9 +74,6 @@ body {
 .delivery-banner {
     background-color: #53565a;
     padding: 0.2rem 0;
-}
-
-.logo-font {
     font-size: 1rem!important;
 }
 
@@ -205,14 +211,78 @@ footer .newsletter-form button:hover {
 }
 
 .card-body {
-    background-color: #fff4bd;
+    background-color: #b5a19775;
     text-align: center;
 }
 
 .card-title {
-    font-family: fondamento, sans-serif;
-    font-size: 22px;
+    font-size: 1.2rem;
     font-weight: bold;
+}
+
+ /* All Products page */
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #b5a19775;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+}
+
+.card-img-top {
+  height: 270px; 
+  object-fit: cover;
+}
+
+.card-footer {
+  text-align: center;
+}
+
+.card .lead {
+  color: #b10450;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+}
+
+/* Product Name Link */
+.product-link {
+  text-decoration: none;
+  color: #333; 
+  transition: color 0.3s ease;
+}
+
+.product-link:hover {
+  color: #b10450;
+  text-decoration: none;
+}
+
+.all-prods {
+  padding-top: 10rem;
+}
+
+.logo-font {
+  font-size: 2.4rem;
+}
+
+.product-container .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
  /* Media Queries */
@@ -225,7 +295,7 @@ footer .newsletter-form button:hover {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 2; /* Ensure it stays above other elements */
+      z-index: 2; 
     }
   
     /* Align the search and cart icons to the right */
@@ -248,7 +318,7 @@ footer .newsletter-form button:hover {
     /* Show the large-screen logo */
     .navbar .navbar-brand.d-lg-block {
       display: block;
-      position: static; /* Default positioning */
+      position: static; 
     }
   
     /* Hide the small-screen logo */
@@ -269,3 +339,8 @@ footer .newsletter-form button:hover {
     }
   }
   
+@media (max-width: 576px) {
+  .card-img-top {
+      height: 150px; 
+  }
+}

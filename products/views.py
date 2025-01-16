@@ -1,12 +1,22 @@
 from django.shortcuts import render
 from .models import Product, Category
+from django.db.models import Q, Case, When
 
 def all_products(request):
     """
     View to display all products with optional sorting and search functionality.
     """
     products = Product.objects.all()
-    categories = Category.objects.all()
+    # Categories in the desired order: Honey, Propolis, Hampers, Beeswax
+    categories = Category.objects.filter(name__in=["Honey", "Propolis", "Hampers", "Beeswax"]).order_by(
+        Case(
+            When(name="Honey", then=0),
+            When(name="Propolis", then=1),
+            When(name="Hampers", then=2),
+            When(name="Beeswax", then=3),
+            default=4,
+        )
+    )
 
     # Get sorting and search query parameters
     sort = request.GET.get('sort', None)
@@ -15,7 +25,9 @@ def all_products(request):
 
     # Search functionality
     if search_query:
-        products = products.filter(name__icontains=search_query) | products.filter(description__icontains=search_query)
+        products = products.filter(
+            Q(name__icontains=search_query) | Q(description__icontains=search_query)
+        )
 
     # Sorting functionality
     if sort:

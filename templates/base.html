@@ -49,11 +49,11 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="shopNowDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop Now</a>
               <div class="dropdown-menu" aria-labelledby="shopNowDropdown">
-                <a class="dropdown-item" href="#">All Products</a>
-                <a class="dropdown-item" href="#">Honey</a>
-                <a class="dropdown-item" href="#">Bee Pollen & Royal Jelly</a>
-                <a class="dropdown-item" href="#">Hampers</a>
-                <a class="dropdown-item" href="#">Beeswax</a>
+                <a class="dropdown-item" href="{% url 'all_products' %}" target="_blank">All Products</a>
+                <a class="dropdown-item" href="#" target="_blank">Honey</a>
+                <a class="dropdown-item" href="#" target="_blank">Propolis</a>
+                <a class="dropdown-item" href="#" target="_blank">Hampers</a>
+                <a class="dropdown-item" href="#" target="_blank">Beeswax Candles</a>
               </div>
             </li>
     
@@ -172,9 +172,9 @@
         </div>
       </nav>
     <!-- Delivery Banner -->
-    <div id="delivery-banner" class="row text-center delivery-banner"> 
+    <div class="row text-center delivery-banner"> 
       <div class="col text-white">
-        <h4 class="logo-font my-1">Free delivery on orders over ${{ free_shipping_threshold }}!</h4>                
+        <h4 class="delivery-banner my-1">Free delivery on orders over ${{ free_shipping_threshold }}!</h4>                
       </div>            
     </div>
     
