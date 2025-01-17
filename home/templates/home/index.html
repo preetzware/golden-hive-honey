@@ -8,8 +8,8 @@
     <div class="row align-items-center mb-5 video-text-card">
         <div class="col-md-6">
             <div class="ratio ratio-16x9">
-                <video controls style="width: 100%; height: 50%;">
-                    <source src="{{ video_url }}" type="video/mp4">
+                <video autoplay muted loop style="width: 100%; height: 50%;">
+                    <source src="/media/honey-clip.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -39,7 +39,7 @@
         </p>
     </div>
     <div class="col-md-6">
-        <img src="{% static 'images/who-we-are.jpg' %}" class="img-fluid rounded" alt="Brief information about us">
+        <img src="/media/beekeepers.webp" class="img-fluid rounded" alt="Brief information about us">
     </div>
 </div>
 
@@ -51,7 +51,7 @@
     <!-- Honey Category -->
     <div class="col-md-3 mb-4">
         <div class="card h-100">
-            <img src="{% static 'images/honey.jpg' %}" class="card-img-top" alt="Honey">
+            <img src="/media/royal-jelly.png" alt="Royal Jelly Honey" class="card-img-top">
             <div class="card-body ">
                 <h5 class="card-title">Honey</h5>
                 <p class="card-text">Price Range: $10 - $50</p>
@@ -62,7 +62,7 @@
     <!-- Hampers Category -->
     <div class="col-md-3 mb-4">
         <div class="card h-100">
-            <img src="{% static 'images/hampers.jpg' %}" class="card-img-top" alt="Hampers">
+            <img src="/media/hamper1.png" class="card-img-top" alt="Hampers">
             <div class="card-body">
                 <h5 class="card-title">Hampers</h5>
                 <p class="card-text">Price Range: $25 - $100</p>
@@ -70,12 +70,12 @@
             </div>
         </div>
     </div>
-    <!-- Bee Pollen & Royal Jelly Category -->
+    <!-- Propolis Category -->
     <div class="col-md-3 mb-4">
         <div class="card h-100">
-            <img src="{% static 'images/bee-pollen.jpg' %}" class="card-img-top" alt="Bee Pollen">
+            <img src="/media/propolis2.png" class="card-img-top" alt="Bee Pollen">
             <div class="card-body">
-                <h5 class="card-title">Bee Pollen</h5>
+                <h5 class="card-title">Propolis</h5>
                 <p class="card-text">Price Range: $15 - $60</p>
                 <a href="/categories/bee-pollen-royal-jelly" class="btn btn-primary">Shop Now</a>
             </div>
@@ -84,7 +84,7 @@
     <!-- Beeswax Category -->
     <div class="col-md-3 mb-4">
         <div class="card h-100">
-            <img src="{% static 'images/beeswax.jpg' %}" class="card-img-top" alt="Beeswax">
+            <img src="/media/3beeswax.jpg" class="card-img-top" alt="Beeswax">
             <div class="card-body">
                 <h5 class="card-title">Beeswax</h5>
                 <p class="card-text">Price Range: $5 - $40</p>
