@@ -25,7 +25,7 @@
                             {% elif product.image %}
                                 <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
                             {% else %}
-                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                <img class="card-img-top img-fluid" src="{% static 'images/noimage.avif' %}" alt="{{ product.name }}">
                             {% endif %}
                         </a>
 
@@ -33,7 +33,7 @@
                         <div class="card-body text-center">
                             <!-- Product Name -->
                             <h5 class="card-title mb-2">
-                                <a href="#" target="_blank" class="product-link">
+                                <a href="{% url 'product_detail' product.id %}" target="_blank" class="product-link">
                                     {{ product.name }}
                                 </a>
                             </h5>

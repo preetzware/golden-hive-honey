@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 detail-container">
+    <div class="row">
+        <!-- Product Image -->
+        <div class="col-12 col-md-6 text-center mb-4 mb-md-0">
+            {% if product.image_url %}
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
+            {% elif product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
+            {% else %}
+                <img src="{% static 'images/noimage.avif' %}" alt="No image available" class="img-fluid rounded shadow">
+            {% endif %}
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-12 col-md-6">
+            <!-- Product Name -->
+            <h1 class="product-name">{{ product.name }}</h1>
+            
+            <!-- Product Price and Ratings -->
+            <div class="d-flex align-items-center mb-3">
+                <p class="lead text-success mb-0 me-4">${{ product.price }}</p>
+                {% if product.rating %}
+                    <div>
+                        <i class="fas fa-star text-warning"></i> {{ product.rating }} / 5
+                    </div>
+                {% else %}
+                    <div>
+                        <span class="text-muted">No Rating</span>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Divider -->
+            <hr>
+
+            <!-- Product Description -->
+            <div class="product-details mb-4">
+                <h5>Description</h5>
+                <p>{{ product.description }}</p>
+            </div>
+
+            <!-- Selection Options -->
+            <div class="row mb-4">
+                {% if product.category.name == "Honey" %}
+                <!-- Weight Selection -->
+                <div class="col-6 d-flex align-items-center">
+                    <label for="weight" class="form-label font-weight-bold me-3">Weight</label>
+                    <select id="weight" class="form-select w-50">
+                        <option value="250g">250g</option>
+                        <option value="500g">500g</option>
+                        <option value="1kg">1kg</option>
+                    </select>
+                </div>
+                {% endif %}
+                
+                <!-- Quantity Selection -->
+                <div class="col-6 d-flex align-items-center justify-content-start">
+                    <label for="quantity" class="form-label font-weight-bold me-3">Quantity</label>
+                    <input type="number" id="quantity" class="form-control w-50" min="1" value="1">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row mt-4">
+                <!-- Back to Products Button -->
+                <div class="col-6 text-end">
+                    <a href="{% url 'all_products' %}" class="btn btn-dark w-100">
+                        Back to Products
+                    </a>
+                </div>
+
+                <!-- Add to Cart Button -->
+                <div class="col-6 text-start">
+                    <button class="btn btn-primary w-100">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

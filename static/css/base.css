@@ -187,6 +187,11 @@ footer .newsletter-form button:hover {
     border-radius: 0.8rem;
 }
 
+.btn-primary:hover {
+  background-color: #FFDE59!important;
+  color: black;
+}
+
 /* who-we-are section */
 #who-we-are {
     background-color: #675C32;
@@ -297,7 +302,69 @@ footer .newsletter-form button:hover {
   margin-right: 1rem;
   margin-left: 1rem;
 }
-  
+
+/* Product Details Page Styling */
+
+.detail-container {
+  margin-top: 10rem!important;
+  margin-bottom: 2rem;
+}
+
+.product-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.product-details h5 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.product-details p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.form-label {
+  margin-bottom: 0.5rem;
+  padding-right: 0.4rem;
+}
+
+#weight {
+  max-width: 75%;
+}
+
+#quantity {
+  max-width: 50%;
+}
+
+.row.mb-4.col-6 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-dark {
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 0.8rem;
+}
+
+.btn-dark:hover {
+  border: 3px solid #FFDE59;
+  transform: translateY(-2px);
+}
+
+.text-success {
+  color: #b10450 !important;
+  font-size: 25px;
+  font-weight: bold;
+  padding-right: 7rem;
+}
+
  /* Media Queries */
 
  /* Navbar header - Small Screens (Below 992px) */
@@ -352,4 +419,10 @@ footer .newsletter-form button:hover {
     }
   }
   
+  /* Optional: Add more spacing between columns on larger screens */
+@media (min-width: 768px) {
+  .row.mb-4.col-6:not(:last-child) {
+    margin-right: 1rem;
+  }
+}
   
