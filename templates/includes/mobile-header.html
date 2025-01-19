@@ -8,11 +8,25 @@
     <img src="/media/golden-hive-logo.png" alt="Golden Hive Logo" class="logo-img">
   </a>
   
-  <!-- Small Screen: Search and Cart Icons -->
+  <!-- Small Screen: Search Icon -->
   <div class="d-flex align-items-center d-lg-none">
-    <a class="nav-link" href="#" id="searchIcon">
+    <a class="nav-link" href="#" id="mobileSearchIcon">
       <i class="fas fa-search"></i>
     </a>
+    <!-- Mobile-Specific Search Bar -->
+<div id="mobile-search-bar" class="hidden">
+  <form method="GET" action="{% url 'all_products' %}">
+      <input 
+          type="text" 
+          id="mobileSearchInput" 
+          name="q" 
+          placeholder="Search honey..." 
+          required 
+      />
+      <button type="submit" class="search-button">Search</button>
+  </form>
+</div>
+    <!-- Small Screen: Cart Icon -->
     <a class="nav-link" href="#" id="cartIcon">
       <i class="fas fa-shopping-cart"></i>
       <span class="{% if cart_items %}badge badge-pill badge-primary{% else %}d-none{% endif %}" id="cart-badge">

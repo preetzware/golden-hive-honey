@@ -365,6 +365,69 @@ footer .newsletter-form button:hover {
   padding-right: 7rem;
 }
 
+/* Search Icon Styles */
+#searchClick {
+  display: inline-block;
+  cursor: pointer;
+  color: #5a3e1b;
+  font-size: 20px;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+#searchClick:hover {
+  border: 2px solid #000000;
+}
+
+/* Search Bar Styling */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+
+.search-bar form {
+  display: flex;
+  width: 100%; 
+  max-width: 700px;
+}
+
+.search-bar input {
+  flex: 1; 
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+.search-bar .search-button {
+  padding: 8px 16px;
+  background-color: #000000; 
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-bar .search-button:hover {
+  background-color: #b10450; 
+}
+
+.hidden {
+  display: none!important;
+}
+
+
  /* Media Queries */
 
  /* Navbar header - Small Screens (Below 992px) */
@@ -390,6 +453,37 @@ footer .newsletter-form button:hover {
     /* Hide the large-screen logo */
     .navbar .navbar-brand.d-lg-block {
       display: none;
+    }
+
+    /* Mobile search form */
+    #mobile-search-bar {
+      position: absolute; /* Absolute positioning */
+      top: 130%; /* Place it directly below the navbar */
+      transform: translateX(-290%); /* Center align the search bar */
+      width: 100%; /* Take up most of the screen width */
+      padding: 10px 15px; /* Adjust padding for small screens */
+      box-sizing: border-box; /* Include padding in width calculation */
+    }
+  
+    #mobile-search-bar form {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+  
+    #mobileSearchInput { 
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+      font-size: 16px;
+    } 
+  
+    #mobile-search-bar .search-button {
+      width: auto;
+      padding: 10px 16px;
+      font-size: 14px;
+      border-radius: 0 4px 4px 0;
     }
   }
   
