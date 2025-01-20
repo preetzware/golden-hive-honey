@@ -56,11 +56,11 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="shopNowDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop Now</a>
               <div class="dropdown-menu" aria-labelledby="shopNowDropdown">
-                <a class="dropdown-item" href="{% url 'all_products' %}" target="_blank">All Products</a>
-                <a class="dropdown-item" href="#" target="_blank">Honey</a>
-                <a class="dropdown-item" href="#" target="_blank">Propolis</a>
-                <a class="dropdown-item" href="#" target="_blank">Hampers</a>
-                <a class="dropdown-item" href="#" target="_blank">Beeswax Candles</a>
+                <a class="dropdown-item" href="{% url 'all_products' %}?category=Honey,Propolis,Hampers,Beeswax Candles" target="_blank">All Products</a>
+                <a class="dropdown-item" href="{% url 'all_products' %}?category=Honey" target="_blank">Honey</a>
+                <a class="dropdown-item" href="{% url 'all_products' %}?category=Propolis" target="_blank">Propolis</a>
+                <a class="dropdown-item" href="{% url 'all_products' %}?category=Hampers" target="_blank">Hampers</a>
+                <a class="dropdown-item" href="{% url 'all_products' %}?category=Beeswax Candles" target="_blank">Beeswax Candles</a>
               </div>
             </li>
     
