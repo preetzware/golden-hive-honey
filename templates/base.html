@@ -150,7 +150,7 @@
     
             <!-- Cart Icon -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="{% url 'view_cart' %}" id="cartDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="{% if cart_items %}badge badge-pill badge-primary{% else %}d-none{% endif %}" id="cart-badge">
                   {% if cart_items %}{{ cart_items|length }}{% endif %}

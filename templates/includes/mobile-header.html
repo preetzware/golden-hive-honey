@@ -27,7 +27,7 @@
   </form>
 </div>
     <!-- Small Screen: Cart Icon -->
-    <a class="nav-link" href="#" id="cartIcon">
+    <a class="nav-link" href="{% url 'view_cart' %}" id="cartIcon">
       <i class="fas fa-shopping-cart"></i>
       <span class="{% if cart_items %}badge badge-pill badge-primary{% else %}d-none{% endif %}" id="cart-badge">
         {% if cart_items %}{{ cart_items|length }}{% endif %}
