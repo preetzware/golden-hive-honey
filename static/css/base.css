@@ -331,6 +331,37 @@ a.category-badge > span.badge:hover {
   color: #fff !important;
 }
 
+.btt-link {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #b10450;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 18px;
+  display: none;
+}
+
+.btt-link:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+.btt-link.visible {
+  display: block;
+}
+
+.custom-hr {
+  width: 100%;     
+  height: 1px;     
+  background-color: #000;  
+  border: none;  
+  margin: 15px auto; 
+}
+
+
 /* Product Details Page Styling */
 
 .detail-container {

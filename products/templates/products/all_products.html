@@ -8,17 +8,16 @@
             <div class="col text-center">
                 <h1 class="all-prods">All Products</h1>
                 {% for c in current_categories %}
-    <a class="category-badge text-decoration-none" href="{% url 'all_products' %}?category={{ c.name }}">
-        <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
-    </a>
-{% endfor %}
-    <hr class="w-50 mb-1">
+                <a class="category-badge text-decoration-none" href="{% url 'all_products' %}?category={{ c.name }}">
+                    <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span>
+                </a>
+                {% endfor %}
+                <hr class="custom-hr">
+
             </div>
         </div>
     </div>
 {% endblock %}
-
-
 
     {% block content %}
 
@@ -113,4 +112,11 @@
             {% endfor %}
         </div>
     </div>
+    <a href="#" class="btt-link">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+{% endblock %}
+{% block postloadjs %}
+<script src="{% static 'js/back-to-top.js' %}"></script>  
+<script src="{% static 'js/sort-selector.js' %}"></script>  
 {% endblock %}
