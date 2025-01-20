@@ -303,6 +303,34 @@ footer .newsletter-form button:hover {
   margin-left: 1rem;
 }
 
+/* Sort Selector */
+#sorting-container {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.sort-select-wrapper {
+  max-width: 300px;
+  width: 100%;
+}
+
+#sort-selector {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+a.category-badge {
+  color: #b10450;
+}
+
+a.category-badge > span.badge:hover {
+  background: #212529 !important;
+  color: #fff !important;
+}
+
 /* Product Details Page Styling */
 
 .detail-container {
