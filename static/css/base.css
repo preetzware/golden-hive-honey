@@ -487,38 +487,36 @@ a.category-badge > span.badge:hover {
 }
 
 /* Cart Container Styling */
-.cart-container {
-  margin-top: 80px; /* Create space below the navbar */
-  padding: 20px; /* Add padding inside the container */
-  min-height: calc(100vh - 120px); /* Ensure the container takes up the full screen height minus navbar and footer */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  background-color: #f9f9f9; /* Optional: Light background color for distinction */
+
+.section-divider {
+  border-top: 2px solid #ccc;
+  margin: 1rem 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Cart styles */
-.cart-container h1 {
+.cart-header {
+  margin-top: 9rem;
+}
+
+.cart-container h2 {
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 20px; /* Space below the title */
-  text-align: left;
+  color: #333;
+  margin-bottom: 1.5rem;
 }
 
-/* Horizontal Line Styling */
-.cart-container hr {
-  width: 100%; /* Centered horizontal line */
-  border: 1px solid #ccc;
-  margin-bottom: 30px; /* Space below the line */
+/* Cart Item Image */
+.cartpage-img {
+  width: 75px; /* Adjust width to fit your layout */
+  height: 75px; /* Set height to keep consistent size */
+  object-fit: cover; /* Ensure the image scales and fits within the box */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
-/* Empty Cart Message Styling */
-.cart-container p.text-muted {
-  font-size: 1.2rem;
-  color: #555; /* Slightly darker for better readability */
-  margin-bottom: 20px;
-}
+
 
 
  /* Media Queries */

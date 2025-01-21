@@ -8,8 +8,6 @@
         <div class="col-12 col-md-6 text-center mb-4 mb-md-0">
             {% if product.image_url %}
                 <img src="{{ product.image_url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
-            {% elif product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
             {% else %}
                 <img src="{% static 'images/noimage.avif' %}" alt="No image available" class="img-fluid rounded shadow">
             {% endif %}
