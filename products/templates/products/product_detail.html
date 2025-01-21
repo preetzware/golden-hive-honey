@@ -54,32 +54,54 @@
 
                 <!-- Selection Options -->
                 <div class="row mb-4">
-            {% if product.has_weight %}
-                <!-- Weight Selection -->
-            <div class="col-6 d-flex align-items-center">
-                 <label for="weight" class="form-label font-weight-bold me-3">Weight</label>
-                     <select id="weight" name="weight" class="form-select w-50">
-                     {% for weight, price in product.weight_prices.items %}
-                        <option value="{{ weight }}">{{ weight }} - €{{ price|floatformat:2 }}</option>
+                    {% if product.has_weight %}
+                    <!-- Weight Selection -->
+                    <div class="col-6 d-flex align-items-center">
+                        <label for="weight" class="form-label font-weight-bold me-3">Weight</label>
+                            <select id="weight" name="weight" class="form-select w-50">
+                    {% for weight, price in product.weight_prices.items %}
+                               <option value="{{ weight }}">{{ weight }} - €{{ price|floatformat:2 }}</option>
                     {% endfor %}
-                    </select>
-            </div>
-            {% endif %}
+                            </select>
+                    </div>
+                    {% endif %}
 
                     <!-- Quantity Selection -->
-                    <div class="col-6 d-flex align-items-center justify-content-start">
-                        <label for="quantity" class="form-label font-weight-bold me-3">Quantity</label>
-                        <input type="number" id="quantity" name="quantity" class="form-control w-50" min="1" value="1">
+                    <div class="col-12">
+                        <p class="mt-3"><strong>Quantity:</strong></p>
+                        <div class="form-group w-50">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="decrement-qty btn btn-black rounded-0" 
+                                        data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
+                                        <span class="icon">
+                                            <i class="fas fa-minus"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <input class="form-control qty_input" type="number"
+                                    name="quantity" value="1" min="1" max="99"
+                                    data-item_id="{{ product.id }}"
+                                    id="id_qty_{{ product.id }}">
+                                <div class="input-group-append">
+                                    <button class="increment-qty btn btn-black rounded-0"
+                                        data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
+                                        <span class="icon">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <!-- Action Buttons -->
                 <div class="row mt-4">
                     <div class="col-6 text-end">
                         <a href="{% url 'all_products' %}" class="btn btn-dark w-100">Back to Products</a>
                     </div>
                     <div class="col-6 text-start">
-                        <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
+                        <button type="submit" class="btn btn-primary w-100 add-to-cart-btn">Add to Cart</button>
                     </div>
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </div>
@@ -88,3 +110,10 @@
     </div>
 </div>
 {% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'products/includes/quantity_input_script.html' %}
+{% endblock %}
+
+
