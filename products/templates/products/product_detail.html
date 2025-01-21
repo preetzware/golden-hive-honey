@@ -54,17 +54,17 @@
 
                 <!-- Selection Options -->
                 <div class="row mb-4">
-                    {% if product.category.name == "Honey" %}
-                    <!-- Weight Selection -->
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="weight" class="form-label font-weight-bold me-3">Weight</label>
-                        <select id="weight" name="weight" class="form-select w-50">
-                            <option value="250g">250g</option>
-                            <option value="500g">500g</option>
-                            <option value="1kg">1kg</option>
-                        </select>
-                    </div>
-                    {% endif %}
+            {% if product.has_weight %}
+                <!-- Weight Selection -->
+            <div class="col-6 d-flex align-items-center">
+                 <label for="weight" class="form-label font-weight-bold me-3">Weight</label>
+                     <select id="weight" name="weight" class="form-select w-50">
+                     {% for weight, price in product.weight_prices.items %}
+                        <option value="{{ weight }}">{{ weight }} - €{{ price|floatformat:2 }}</option>
+                    {% endfor %}
+                    </select>
+            </div>
+            {% endif %}
 
                     <!-- Quantity Selection -->
                     <div class="col-6 d-flex align-items-center justify-content-start">

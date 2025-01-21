@@ -393,7 +393,9 @@ a.category-badge > span.badge:hover {
 }
 
 #weight {
-  max-width: 75%;
+  max-width: 100%;
+  padding: 6.5px 0;
+  border-radius: 0.4rem;
 }
 
 #quantity {

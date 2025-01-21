@@ -36,10 +36,15 @@
                         <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" 
                              class="cartpage-img">
                     </td>
-                    <td>{{ item.product.name }}</td>
+                    <td>
+                        {{ item.product.name }}
+                        {% if item.weight %}
+                            <br><small>Weight: {{ item.weight }}</small>
+                        {% endif %}
+                    </td>
                     <td class="text-center">{{ item.quantity }}</td>
-                    <td class="text-center">${{ item.product.price|floatformat:2 }}</td>
-                    <td class="text-center">${{ item.total_price|floatformat:2 }}</td>
+                    <td class="text-center">€{{ item.product.price|floatformat:2 }}</td>
+                    <td class="text-center">€{{ item.total_price|floatformat:2 }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
