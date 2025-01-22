@@ -344,6 +344,8 @@ a.category-badge > span.badge:hover {
   display: none;
 }
 
+.update-link,
+.remove-item,
 .btt-link:hover {
   cursor: pointer;
   color: #000;
