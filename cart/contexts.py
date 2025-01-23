@@ -24,9 +24,9 @@ def cart_contents(request):
 
             # Determine price based on weight or default to product's base price
             if weight and product.has_weight:
-                price = Decimal(product.weight_prices.get(weight, product.price))
+                 price = Decimal(product.weight_prices.get(weight, product.price))
             else:
-                price = Decimal(product.price)
+                 price = Decimal(product.price)
 
             # Update totals and cart items
             total += quantity * price
