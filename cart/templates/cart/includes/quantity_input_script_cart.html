@@ -1,0 +1,91 @@
+<script type="text/javascript">
+    // Ensure proper enabling/disabling of all inputs on page load
+    function handleEnableDisable(itemId) {
+        var currentValue = parseInt($(`#id_qty_${itemId}`).val());
+        var minusDisabled = currentValue <= 1;
+        var plusDisabled = currentValue >= 99;
+        $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
+        $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
+    }
+
+    // Check enable/disable every time the input is changed
+    $('.qty_input').each(function () {
+        var itemId = $(this).data('item_id');
+        handleEnableDisable(itemId);
+    });
+
+    $('.qty_input').change(function () {
+        var itemId = $(this).data('item_id');
+        var currentValue = parseInt($(this).val());
+
+        // Check if the quantity is valid
+        if (currentValue < 1 || currentValue > 99) {
+            // Reset quantity to 1 if out of range and show info toast
+            $(this).val(1);
+            showInfoToast('Invalid quantity. Please enter a value between 1 and 99.');
+            handleEnableDisable(itemId);
+            return; // Prevent form submission for invalid quantities
+        }
+
+        handleEnableDisable(itemId);
+
+        // Automatically submit the form when the input is valid
+        const form = $(this).closest('form');
+        form.submit(); // Submit the form to update the session
+    });
+
+    // Increment quantity
+    $('.increment-qty').click(function (e) {
+        e.preventDefault();
+        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentValue = parseInt($(closestInput).val());
+        if (currentValue < 99) {
+            $(closestInput).val(currentValue + 1);
+            const form = $(this).closest('form');
+            form.submit(); // Submit the form after incrementing
+        } else {
+            showInfoToast('The quantity cannot exceed 99.');
+        }
+        var itemId = $(this).data('item_id');
+        handleEnableDisable(itemId);
+    });
+
+    // Decrement quantity
+    $('.decrement-qty').click(function (e) {
+        e.preventDefault();
+        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentValue = parseInt($(closestInput).val());
+        if (currentValue > 1) {
+            $(closestInput).val(currentValue - 1);
+            const form = $(this).closest('form');
+            form.submit(); // Submit the form after decrementing
+        } else {
+            showInfoToast('The quantity cannot be less than 1.');
+        }
+        var itemId = $(this).data('item_id');
+        handleEnableDisable(itemId);
+    });
+
+    // Function to show info toast
+    function showInfoToast(message) {
+        // Add the toast dynamically if it doesn't exist
+        if (!$('.toast-info').length) {
+            $('body').append(`
+                <div class="toast toast-info custom-toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
+                    <div class="toast-header bg-info text-white">
+                        <strong class="mr-auto">Info</strong>
+                        <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `);
+        }
+
+        // Show the toast
+        $('.toast-info').toast('show');
+    }
+</script>

@@ -227,8 +227,15 @@
     
     {% block postloadjs %}
     <script type="text/javascript">
-        $('.toast').toast('show');
-    </script>
+      // Initialize all toasts with a 5-second delay
+      $('.toast').toast({
+          autohide: true,
+          delay: 5000 // 5000 milliseconds = 5 seconds
+      });
+  
+      // Show all toasts
+      $('.toast').toast('show');
+  </script>
     {% endblock %}
 
     
