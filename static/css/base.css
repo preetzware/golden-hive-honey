@@ -70,6 +70,14 @@ body {
     transition: box-shadow 0.3s ease, border 0.3s ease;
 }
 
+.fa-shopping-cart:hover {
+  color: #b10450;
+}
+
+.text-info {
+  color: #b10450!important;
+}
+
 /* Delivery Banner */
 .delivery-banner {
     background-color: #53565a;
