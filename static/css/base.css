@@ -581,6 +581,56 @@ a.category-badge > span.badge:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Toast Arrow Adjustments */
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid black;
+  position: absolute;
+  top: -12px;
+  right: 20px; /* Adjusted for alignment */
+}
+
+.arrow-success {
+  border-bottom-color: #28a745 !important;
+}
+
+/* Cart Notification Wrapper */
+.cart-notification-wrapper {
+  max-height: 150px; /* Increased height for better visibility */
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 10px; /* Adds padding to prevent scrollbar overlap */
+}
+
+/* Toast Positioning Consistency */
+.custom-toast {
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+
+/* Toast Header Styles */
+.toast-header {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.toast-body hr {
+  margin: 10px 0;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cart-display {
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-color: #b10450;
+  color: #FFFFFF;
+  padding-left: 5rem;
+}
+
  /* -------------- Media Queries ----------------- */
 
  /* Navbar header - Small Screens (Below 992px) */
