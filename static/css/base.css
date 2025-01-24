@@ -363,7 +363,6 @@ a.category-badge > span.badge:hover {
   margin: 15px auto; 
 }
 
-
 /* Product Details Page Styling */
 
 .detail-container {
@@ -545,9 +544,44 @@ a.category-badge > span.badge:hover {
   padding: 0.4rem 0.6rem;
 }
 
+/* bootstrap toasts */
 
+.message-container {
+  position: fixed;
+  top: 72px;
+  right: 15px;
+  z-index: 99999999999;
+}
 
- /* Media Queries */
+.custom-toast {
+  overflow: visible;
+}
+
+.toast-capper {
+  height: 2px;
+}
+
+.custom-toast {
+  min-width: 300px;
+  max-width: 400px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.toast-header {
+  font-weight: bold;
+}
+
+.toast-body {
+  padding: 15px;
+  font-size: 0.95rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+ /* -------------- Media Queries ----------------- */
 
  /* Navbar header - Small Screens (Below 992px) */
 @media (max-width: 991px) {

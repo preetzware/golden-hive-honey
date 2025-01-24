@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from products.models import Product
 
 def cart_contents(request):
-    cart = request.session.get('cart', {})
+    cart = request.session.get('cart', {})  # Retrieve the cart from the session
 
     cart_items = []
     total = Decimal(0)
@@ -12,36 +12,34 @@ def cart_contents(request):
 
     for product_key, item_data in cart.items():
         try:
-            # Extract product ID and weight (if present)
+            # Extract product ID
             product_id = product_key.split('-')[0]  # Extract product ID
-            weight = None
-            if '-' in product_key:
-                weight = product_key.split('-')[1]  # Extract weight if present
 
-            # Fetch product object
+            # Fetch the product object
             product = get_object_or_404(Product, id=product_id)
+
+            # Quantity of the product in the cart
             quantity = item_data.get('quantity', 0) if isinstance(item_data, dict) else item_data
 
-            # Determine price based on weight or default to product's base price
-            if weight and product.has_weight:
-                 price = Decimal(product.weight_prices.get(weight, product.price))
-            else:
-                 price = Decimal(product.price)
+            # Price of the product
+            price = Decimal(product.price)
 
-            # Update totals and cart items
+            # Update totals and add to cart items
             total += quantity * price
             product_count += quantity
             cart_items.append({
                 'product': product,
                 'quantity': quantity,
-                'weight': weight,
                 'price': price,
                 'total_price': quantity * price,
+                # Include weight for display purposes only
+                'weight': item_data.get('weight') if isinstance(item_data, dict) else None,
             })
+
         except Exception as e:
             print(f"Error processing cart product {product_key}: {e}")
 
-    # Calculate delivery charges
+    # Delivery Charges Calculation
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * (Decimal(settings.STANDARD_DELIVERY_PERCENTAGE) / Decimal(100))
         free_delivery_delta = Decimal(settings.FREE_DELIVERY_THRESHOLD) - total
@@ -49,15 +47,16 @@ def cart_contents(request):
         delivery = Decimal(0)
         free_delivery_delta = Decimal(0)
 
-    grand_total = delivery + total
+    # Calculate grand total
+    grand_total = total + delivery
 
+    # Return context
     return {
-        'cart_items': cart_items,
-        'total': total,
-        'product_count': product_count,
-        'delivery': delivery,
-        'free_delivery_delta': free_delivery_delta,
+        'cart_items': cart_items,               # List of all items in the cart
+        'total': total,                         # Total cost of products
+        'product_count': product_count,         # Total quantity of products
+        'delivery': delivery,                   # Delivery cost
+        'free_delivery_delta': free_delivery_delta,  # Amount needed for free delivery
         'free_delivery_threshold': Decimal(settings.FREE_DELIVERY_THRESHOLD),
-        'grand_total': grand_total,
+        'grand_total': grand_total,             # Grand total including delivery
     }
-    

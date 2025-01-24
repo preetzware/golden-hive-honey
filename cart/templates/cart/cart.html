@@ -135,16 +135,27 @@
         // Update the subtotal for this item
         $(`#id_qty_${itemId}`).closest('tr').find('.product-subtotal').text(`€${newSubtotal}`);
 
-        // Update the cart total and grand total
+        // Update the cart total
         let total = 0;
         $('.product-subtotal').each(function () {
             total += parseFloat($(this).text().replace('€', ''));
         });
 
-        const delivery = parseFloat($('#delivery-amount').data('delivery') || 0);
-        const grandTotal = total + delivery;
+        // Dynamically calculate the delivery charge
+        const freeDeliveryThreshold = 50; // Free delivery threshold
+        const deliveryChargeRate = 0.1; // Delivery percentage rate (10%)
+        let delivery = 0;
 
+        if (total < freeDeliveryThreshold) {
+            delivery = (total * deliveryChargeRate).toFixed(2);
+        }
+
+        // Calculate the grand total
+        const grandTotal = total + parseFloat(delivery);
+
+        // Update the DOM with the new totals
         $('#cart-total').text(`€${total.toFixed(2)}`);
+        $('#delivery-amount').text(`€${parseFloat(delivery).toFixed(2)}`).data('delivery', delivery);
         $('#grand-total').text(`€${grandTotal.toFixed(2)}`);
     }
 

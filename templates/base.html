@@ -193,14 +193,28 @@
     <!-- Delivery Banner -->
     <div class="row text-center delivery-banner"> 
       <div class="col text-white">
-        <h4 class="delivery-banner my-1">Free delivery on orders over ${{ free_delivery_threshold }}!</h4>                
+        <h4 class="delivery-banner my-1">Free delivery on orders over €{{ free_delivery_threshold }}!</h4>                
       </div>            
     </div>
     
     </header>    
   
     {% if messages %}
-        <div class="message-container"></div>
+        <div class="message-container">
+            {% for message in messages %}
+                {% with message.level as level %}
+                    {% if level == 40 %}
+                        {% include 'includes/toasts/toast_error.html' %}
+                    {% elif level == 30 %}
+                        {% include 'includes/toasts/toast_warning.html' %}
+                    {% elif level == 25 %}
+                        {% include 'includes/toasts/toast_success.html' %}
+                    {% else %}
+                        {% include 'includes/toasts/toast_info.html' %}
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </div>
     {% endif %}
 
     {% block page_header %}
@@ -208,13 +222,15 @@
 
     {% block content %}
     {% endblock %}
-
-    <!-- Footer Section -->
+      <!-- Footer Section -->
     {% include 'includes/footer.html' %}
     
     {% block postloadjs %}
-    
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
     {% endblock %}
+
     
   </body>
 </html>
