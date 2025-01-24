@@ -21,17 +21,6 @@
 
     {% block content %}
 
-    <!-- Display Messages -->
-    {% if messages %}
-        <div class="message-container">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} text-center">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-
     <div class="container product-container">
         <!-- Sort Selector -->
         <div class="row mb-3">
