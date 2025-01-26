@@ -12,7 +12,7 @@ def add_to_cart(request, product_id):
     try:
         # Ensure the product exists
         product = get_object_or_404(Product, id=product_id)
-        product = Product.objects.get(pk=product_id)
+
         # Validate quantity
         quantity = int(request.POST.get('quantity', 1))
         if quantity <= 0:
@@ -21,12 +21,12 @@ def add_to_cart(request, product_id):
 
         # Retrieve the selected weight (if applicable)
         weight = request.POST.get('weight', None)
-        price = float(product.price)  # Convert product price to float
+        price = float(product.price)  # Default to product's base price
 
         # Adjust price if weight is selected and the product has weight options
         if weight and product.has_weight:
             weight_prices = product.weight_prices or {}
-            price = float(weight_prices.get(weight, product.price))  # Convert Decimal to float
+            price = float(weight_prices.get(weight, product.price))  # Fetch weight-specific price or default
 
         # Retrieve the session cart
         cart = request.session.get('cart', {})
@@ -40,7 +40,7 @@ def add_to_cart(request, product_id):
         else:
             cart[item_key] = {
                 'quantity': quantity,
-                'price': price,  # Ensure price is stored as float
+                'price': price,  # Store price for the selected weight
                 'weight': weight,  # Store weight if applicable
             }
 

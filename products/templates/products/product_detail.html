@@ -48,24 +48,27 @@
                 <p>{{ product.description }}</p>
             </div>
 
-            <!-- Add to Cart Form -->
-            <form method="POST" action="{% url 'add_to_cart' product.id %}">
-                {% csrf_token %}
+           <!-- Safely embed weight prices as JSON -->
+    {% if product.has_weight %}
+    <script type="application/json" id="weightPricesData">
+        {{ product.weight_prices|safe }}
+    </script>
+    {% endif %}
 
-                <!-- Selection Options -->
-                <div class="row mb-4">
-                    {% if product.has_weight %}
-                    <!-- Weight Selection -->
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="weight" class="form-label font-weight-bold me-3">Weight</label>
-                            <select id="weight" name="weight" class="form-select w-50">
+     <!-- Add to Cart Form -->
+     <form method="POST" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <div class="row mb-4">
+            {% if product.has_weight %}
+            <div class="col-6 d-flex align-items-center">
+                <label for="weight" class="form-label font-weight-bold me-3">Weight</label>
+                <select id="weight" name="weight" class="form-select w-50">
                     {% for weight, price in product.weight_prices.items %}
-                               <option value="{{ weight }}">{{ weight }} - €{{ price|floatformat:2 }}</option>
+                    <option value="{{ weight }}">{{ weight }} - €{{ price|floatformat:2 }}</option>
                     {% endfor %}
-                            </select>
-                    </div>
-                    {% endif %}
-
+                </select>
+            </div>
+            {% endif %}
                     <!-- Quantity Selection -->
                     <div class="col-12">
                         <p class="mt-3"><strong>Quantity:</strong></p>
@@ -114,6 +117,27 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
+document.addEventListener("DOMContentLoaded", function () {
+    // Get the weight dropdown and the price display span
+    const weightDropdown = document.getElementById("weight");
+    const priceDisplay = document.getElementById("dynamic-price");
+
+    // Function to update the price dynamically
+    function updatePrice() {
+        const selectedOption = weightDropdown.options[weightDropdown.selectedIndex];
+        const price = selectedOption.getAttribute("data-price");
+        if (price) {
+            priceDisplay.textContent = `€${parseFloat(price).toFixed(2)}`;
+        }
+    }
+
+    // Initial price update (on page load)
+    updatePrice();
+
+    // Update price when the weight selection changes
+    weightDropdown.addEventListener("change", updatePrice);
+});
+
 {% endblock %}
 
 
