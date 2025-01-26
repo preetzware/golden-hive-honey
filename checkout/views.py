@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 
 from .forms import OrderForm
+from .models import Order, OrderLineItem
+from products.models import Product
 from cart.contexts import cart_contents
 
 import stripe
@@ -12,6 +14,73 @@ import stripe
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    if request.method == 'POST':
+        cart = request.session.get('cart', {})
+
+        form_data = {
+            'full_name': request.POST['full_name'],
+            'email': request.POST['email'],
+            'phone_number': request.POST['phone_number'],
+            'country': request.POST['country'],
+            'postcode': request.POST['postcode'],
+            'town_or_city': request.POST['town_or_city'],
+            'street_address1': request.POST['street_address1'],
+            'street_address2': request.POST['street_address2'],
+            'county': request.POST['county'],
+        }
+        order_form = OrderForm(form_data)
+        if order_form.is_valid():
+            order = order_form.save()
+            for product_key, item_data in cart.items():
+                try:
+                    # Extract product ID
+                     product_id = product_key.split('-')[0]
+                     product = Product.objects.get(id=product_id)
+
+                    # Handle non-weighted products
+                     if isinstance(item_data, int):
+                        order_line_item = OrderLineItem(
+                            order=order,
+                            product=product,
+                            quantity=item_data,
+                        )
+                        order_line_item.save()
+                     else:
+            # Handle weighted products
+                        product_weight = item_data.get('weight')
+                        quantity = item_data.get('quantity', 0)
+                     if product_weight:
+                # Save weighted products
+                        order_line_item = OrderLineItem(
+                            order=order,
+                            product=product,
+                            quantity=quantity,
+                            product_weight=product_weight,
+                        )
+                        order_line_item.save()
+                     elif quantity > 0:
+                        # Save products with no weight
+                        order_line_item = OrderLineItem(
+                            order=order,
+                            product=product,
+                            quantity=quantity,
+                        )
+                        order_line_item.save()
+                except Product.DoesNotExist:
+                        messages.error(request, (
+                            "One of the products in your cart wasn't found in our database. "
+                            "Please call us for assistance!"
+                        ))
+                        order.delete()
+                        return redirect(reverse('view_cart'))
+
+
+            request.session['save_info'] = 'save-info' in request.POST
+            return redirect(reverse('checkout_success', args=[order.order_number]))
+        else:
+            messages.error(request, 'There was an error with your form. \
+                Please double check your information.')
 
     cart = request.session.get('cart', {})
     if not cart:
@@ -41,3 +110,25 @@ def checkout(request):
     }
 
     return render(request, template, context)
+
+
+def checkout_success(request, order_number):
+    """
+    Handle successful checkouts
+    """
+    save_info = request.session.get('save_info')
+    order = get_object_or_404(Order, order_number=order_number)
+    messages.success(request, f'Order successfully processed! \
+        Your order number is {order_number}. A confirmation \
+        email will be sent to {order.email}.')
+
+    if 'cart' in request.session:
+        del request.session['cart']
+
+    template = 'checkout/checkout_success.html'
+    context = {
+        'order': order,
+    }
+
+    return render(request, template, context)
+    

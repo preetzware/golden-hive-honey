@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 cart-header">
+    <div class="row">
+        <div class="col text-center">
+            <hr>
+                <h2 class="logo-font mb-4">Thank You</h2>
+            <hr>
+            <h4 class="fw-bold">Your order has been successfully processed!</h4>
+            <p>Your order number is <strong>{{ order.order_number }}</strong>. A confirmation email has been sent to <strong>{{ order.email }}</strong>.</p>
+            <hr>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <h5 class="text-center mb-4">Order Summary</h5>
+            <div class="row mb-2">
+                <div class="col-6">Order Total:</div>
+                <div class="col-6 text-right">€{{ order.order_total|floatformat:2 }}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-6">Delivery Cost:</div>
+                <div class="col-6 text-right">€{{ order.delivery_cost|floatformat:2 }}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-6 font-weight-bold">Grand Total:</div>
+                <div class="col-6 text-right font-weight-bold">€{{ order.grand_total|floatformat:2 }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col text-center">
+            <a href="{% url 'all_products' %}" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
