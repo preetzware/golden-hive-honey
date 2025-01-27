@@ -67,8 +67,15 @@ class OrderLineItem(models.Model):
         """
         Override the save method to calculate the lineitem total and update the order total.
         """
-        # Use the product price directly, as the weight-based price is pre-determined in the cart
-        self.lineitem_total = self.product.price * self.quantity
+        # Determine price for weight-based products
+        if self.product.has_weight and self.product_weight:
+            weight_prices = self.product.weight_prices or {}
+            price = weight_prices.get(self.product_weight, 0)
+        else:
+            price = self.product.price
+
+        # Calculate the lineitem total
+        self.lineitem_total = price * self.quantity
         super().save(*args, **kwargs)
 
     def __str__(self):

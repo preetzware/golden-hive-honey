@@ -12,5 +12,6 @@ def multiply(value, arg):
 
 @register.filter
 def calc_subtotal(price, quantity):
-    """Calculate the subtotal for an item."""
+    if price is None or quantity is None:
+        return 0  # Return 0 for invalid inputs
     return price * quantity
