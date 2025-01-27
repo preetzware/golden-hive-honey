@@ -85,7 +85,7 @@
                             </button>
                         </form>
                     </td>                    
-                    <td class="text-center product-price">€{{ item.product.price|floatformat:2 }}</td>
+                    <td class="text-center product-price">€{{ item.price|floatformat:2 }}</td>
                     <td class="text-center product-subtotal">€{{ item.total_price|floatformat:2 }}</td>
                 </tr>
                 {% endfor %}

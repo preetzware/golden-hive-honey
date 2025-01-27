@@ -8,62 +8,61 @@
         $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
     }
 
-    // Fetch weightPrices from the JSON script in the template
-const weightPrices = JSON.parse(document.getElementById('weightPricesData').textContent);
-
-// Update price based on weight selection
-function updateWeightPrice() {
-    const weightSelect = $('#weight'); // Weight dropdown
-    const priceDisplay = $('.product-price'); // Element showing the product price
-
-    weightSelect.on('change', function () {
-        const selectedWeight = $(this).val();
-        if (weightPrices[selectedWeight]) {
-            priceDisplay.text(`€${weightPrices[selectedWeight].toFixed(2)}`);
-        } else {
-            priceDisplay.text('€0.00'); // Default fallback for invalid selections
-        }
-    });
-
-    // Trigger price update on page load
-    weightSelect.trigger('change');
-}
-
     // Check enable/disable every time the input is changed
     $('.qty_input').each(function () {
-        const itemId = $(this).data('item_id');
+        var itemId = $(this).data('item_id');
         handleEnableDisable(itemId);
     });
 
     $('.qty_input').change(function () {
-        const itemId = $(this).data('item_id');
+        var itemId = $(this).data('item_id');
         handleEnableDisable(itemId);
     });
 
     // Increment quantity
     $('.increment-qty').click(function (e) {
         e.preventDefault();
-        const closestInput = $(this).closest('.input-group').find('.qty_input')[0];
-        const currentValue = parseInt($(closestInput).val());
+        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentValue = parseInt($(closestInput).val());
         $(closestInput).val(currentValue + 1);
-        const itemId = $(this).data('item_id');
+        var itemId = $(this).data('item_id');
         handleEnableDisable(itemId);
     });
 
     // Decrement quantity
     $('.decrement-qty').click(function (e) {
         e.preventDefault();
-        const closestInput = $(this).closest('.input-group').find('.qty_input')[0];
-        const currentValue = parseInt($(closestInput).val());
+        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+        var currentValue = parseInt($(closestInput).val());
         if (currentValue > 1) {
             $(closestInput).val(currentValue - 1);
         }
-        const itemId = $(this).data('item_id');
+        var itemId = $(this).data('item_id');
         handleEnableDisable(itemId);
     });
 
-    // Initialize weight price update logic
-    $(document).ready(function () {
+    // Fetch weightPrices from the JSON script in the template
+    const weightPrices = JSON.parse(document.getElementById('weightPricesData').textContent);
+
+    // Update price based on weight selection
+    function updateWeightPrice() {
+        const weightSelect = $('#weight'); // Dropdown for weight
+        weightSelect.on('change', function () {
+            const selectedWeight = $(this).val();
+            const priceDisplay = $('.product-price');
+            if (weightPrices[selectedWeight]) {
+                priceDisplay.text(`€${weightPrices[selectedWeight].toFixed(2)}`);
+            } else {
+                priceDisplay.text('€0.00'); // Fallback if no price found
+            }
+        });
+
+        // Trigger price update on page load
+        weightSelect.trigger('change');
+    }
+
+       // Initialize weight price update logic
+       $(document).ready(function () {
         updateWeightPrice();
     });
 </script>

@@ -8,7 +8,7 @@ def view_cart(request):
 
 
 def add_to_cart(request, product_id):
-    """Add a quantity of the specified product to the shopping cart"""
+    """Add a quantity of the specified product to the shopping cart."""
     try:
         # Ensure the product exists
         product = get_object_or_404(Product, id=product_id)
@@ -21,18 +21,26 @@ def add_to_cart(request, product_id):
 
         # Retrieve the selected weight (if applicable)
         weight = request.POST.get('weight', None)
-        price = float(product.price)  # Default to product's base price
+        price = 0  # Default price
 
-        # Adjust price if weight is selected and the product has weight options
-        if weight and product.has_weight:
+        # Determine price based on weight or product price
+        if product.has_weight:  # For products with weight options
+            if not weight:  # Ensure weight is selected
+                messages.error(request, "Please select a valid weight for this product.")
+                return redirect(request.META.get('HTTP_REFERER', '/'))
             weight_prices = product.weight_prices or {}
-            price = float(weight_prices.get(weight, product.price))  # Fetch weight-specific price or default
+            price = float(weight_prices.get(weight, 0))  # Get weight-specific price
+            if price == 0:  # Invalid weight
+                messages.error(request, "Invalid weight selection. Please try again.")
+                return redirect(request.META.get('HTTP_REFERER', '/'))
+        else:  # For products without weight options
+            price = float(product.price) if product.price else 0
 
         # Retrieve the session cart
         cart = request.session.get('cart', {})
 
         # Generate a unique key combining product_id and weight (if applicable)
-        item_key = f"{product_id}-{weight}" if weight else str(product_id)
+        item_key = f"{product_id}-{weight}" if product.has_weight and weight else str(product_id)
 
         # Update or add the product to the cart
         if item_key in cart:
@@ -40,7 +48,7 @@ def add_to_cart(request, product_id):
         else:
             cart[item_key] = {
                 'quantity': quantity,
-                'price': price,  # Store price for the selected weight
+                'price': price,  # Store price for the product or selected weight
                 'weight': weight,  # Store weight if applicable
             }
 
@@ -54,6 +62,7 @@ def add_to_cart(request, product_id):
         messages.error(request, f"An error occurred: {str(e)}")
 
     return redirect(request.POST.get('redirect_url', '/'))
+    
 
 
 def adjust_cart(request, product_id):

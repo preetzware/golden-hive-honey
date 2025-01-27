@@ -76,7 +76,13 @@
                             </h5>
 
                         <!-- Product Price -->
+                        {% if product.price %}
                             <p class="lead font-weight-bold mb-2">${{ product.price }}</p>
+                        {% elif product.price_range %}
+                            <p class="lead font-weight-bold mb-2">{{ product.price_range }}</p>
+                        {% else %}
+                            <p class="lead font-weight-bold mb-2 text-muted">Price not available</p>
+                        {% endif %}
 
                         <!-- Product category (friendly name) -->
                         {% if product.category %}

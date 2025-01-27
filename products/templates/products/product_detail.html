@@ -18,9 +18,16 @@
             <!-- Product Name -->
             <h1 class="product-name">{{ product.name }}</h1>
             
-            <!-- Product Price and Ratings -->
+            <!-- Product Price  -->
             <div class="d-flex align-items-center mb-3">
-                <p class="lead text-success mb-0 me-4">${{ product.price }}</p>
+                {% if product.price %}
+                   <p class="lead text-success mb-0 me-4">${{ product.price }}</p>
+                {% elif product.price_range %}
+                   <p class="lead text-success mb-0 me-4">{{ product.price_range }}</p>
+                {% else %}
+                   <p class="lead text-success mb-0 me-4">Price not available</p>
+                {% endif %}
+            <!-- Product Ratings -->
                 {% if product.rating %}
                     <div>
                         <i class="fas fa-star text-warning"></i> {{ product.rating }} / 5
@@ -117,26 +124,6 @@
 {% block postloadjs %}
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
-document.addEventListener("DOMContentLoaded", function () {
-    // Get the weight dropdown and the price display span
-    const weightDropdown = document.getElementById("weight");
-    const priceDisplay = document.getElementById("dynamic-price");
-
-    // Function to update the price dynamically
-    function updatePrice() {
-        const selectedOption = weightDropdown.options[weightDropdown.selectedIndex];
-        const price = selectedOption.getAttribute("data-price");
-        if (price) {
-            priceDisplay.textContent = `€${parseFloat(price).toFixed(2)}`;
-        }
-    }
-
-    // Initial price update (on page load)
-    updatePrice();
-
-    // Update price when the weight selection changes
-    weightDropdown.addEventListener("change", updatePrice);
-});
 
 {% endblock %}
 

@@ -12,8 +12,9 @@ def cart_contents(request):
 
     for product_key, item_data in cart.items():
         try:
-            # Extract product ID
+            # Extract product ID and weight (if applicable)
             product_id = product_key.split('-')[0]  # Extract product ID
+            weight = product_key.split('-')[1] if '-' in product_key else None
 
             # Fetch the product object
             product = get_object_or_404(Product, id=product_id)
@@ -21,8 +22,14 @@ def cart_contents(request):
             # Quantity of the product in the cart
             quantity = item_data.get('quantity', 0) if isinstance(item_data, dict) else item_data
 
-            # Price of the product
-            price = Decimal(product.price)
+            # Determine the price (based on weight if applicable)
+            if product.has_weight and weight:
+                weight_prices = product.weight_prices or {}
+                price = Decimal(weight_prices.get(weight, 0))  # Fetch weight-specific price
+                if price == 0:
+                    raise ValueError(f"Invalid weight '{weight}' for product '{product.name}'.")
+            else:
+                price = Decimal(product.price)
 
             # Update totals and add to cart items
             total += quantity * price
@@ -32,12 +39,12 @@ def cart_contents(request):
                 'quantity': quantity,
                 'price': price,
                 'total_price': quantity * price,
-                # Include weight for display purposes only
-                'weight': item_data.get('weight') if isinstance(item_data, dict) else None,
+                'weight': weight,  # Include weight for display purposes
             })
 
         except Exception as e:
             print(f"Error processing cart product {product_key}: {e}")
+
 
     # Delivery Charges Calculation
     if total < settings.FREE_DELIVERY_THRESHOLD:
