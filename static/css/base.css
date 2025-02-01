@@ -639,6 +639,22 @@ a.category-badge > span.badge:hover {
   padding-left: 5rem;
 }
 
+/* Allauth login form */
+.allauth-form-container {
+  max-width: 600px;  /* Adjust width to match checkout_success card */
+  margin: 0 auto;    /* Center it horizontally */
+}
+
+
+/* Style form elements */
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
  /* -------------- Media Queries ----------------- */
 
  /* Navbar header - Small Screens (Below 992px) */

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container header-container cart-header">
+        <div class="overlay"></div>
+        <div class="row justify-content-center">  <!-- Centers the row contents -->
+            <div class="col-12 col-md-8 col-lg-6 mx-auto d-flex justify-content-center">
+                <div class="allauth-form-inner-content w-100">
+                    {% block inner_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
